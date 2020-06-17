@@ -1,2 +1,2 @@
 # rocm-spack
-Repository to host spack recipes for ROCm
+This repository will host SPACK recipes for every ROCm release.
