@@ -13,7 +13,7 @@ class RocprofilerDev(CMakePackage):
 
     depends_on('cmake@3.5.2', type='build')
     depends_on('hsakmt-roct@3.5.0:', type='build', when='@3.5.0:')
-    depends_on('hsa-rocr-dev@3.5.0:', type='build', when='@3.5.0:')
+    depends_on('hsa-rocr-dev@3.5.0:', type='link', when='@3.5.0:')
     depends_on('rocminfo@3.5.0:', type='build', when='@3.5.0:')
 
     resource(name='roctracer-dev',
