@@ -16,7 +16,7 @@ class Rocfft(CMakePackage):
     homepage = "https://github.com/ROCmSoftwarePlatform/rocFFT/"
     url      = "https://github.com/ROCmSoftwarePlatform/rocfft/archive/rocm-3.5.0.tar.gz"
 
-    maintainers = ['Advanced Micro Devices Inc.']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='629f02cfecb7de5ad2517b6a8aac6ed4de60d3a9c620413c4d9db46081ac2c88')
 

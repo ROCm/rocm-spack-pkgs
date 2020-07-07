@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 
@@ -7,7 +13,7 @@ class RocmDbgapi(CMakePackage):
     homepage = "https://github.com/ROCm-Developer-Tools/ROCdbgapi"
     url      = "https://github.com/ROCm-Developer-Tools/ROCdbgapi/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='eeba0592bc79b90e5b874bba18fd003eab347e8a3cc80343708f8d19e047e87b')
 
