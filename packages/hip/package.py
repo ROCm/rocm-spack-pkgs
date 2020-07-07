@@ -16,6 +16,10 @@ class Hip(CMakePackage):
     depends_on('hsakmt-roct@3.5.0:', type='build', when='@3.5.0:')
     depends_on('hsa-rocr-dev@3.5.0:', type='link', when='@3.5.0:')
     depends_on('comgr@3.5.0:', type='build', when='@3.5.0')
+    depends_on('llvm-amdgpu@3.5.0:', type='build', when='@3.5.0')
+
+    def patch(self):
+        filter_file('INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"', 'INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"', 'hip-config.cmake.in', string=True)
 
 
     def setup_build_environment(self, build_env):
