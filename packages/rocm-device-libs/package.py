@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 class RocmDeviceLibs(CMakePackage):
@@ -6,7 +12,7 @@ class RocmDeviceLibs(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs"
     url      = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='dce3a4ba672c4a2da4c2260ee4dc96ff6dd51877f5e7e1993cb107372a35a378')
 

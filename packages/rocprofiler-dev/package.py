@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 
@@ -7,7 +13,7 @@ class RocprofilerDev(CMakePackage):
     homepage = "https://github.com/ROCm-Developer-Tools/rocprofiler"
     url      = "https://github.com/ROCm-Developer-Tools/rocprofiler/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='c42548dd467b7138be94ad68c715254eb56a9d3b670ccf993c43cd4d43659937')
 

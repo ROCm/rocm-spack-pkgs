@@ -1,3 +1,8 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
 from spack import *
 
 
@@ -7,7 +12,7 @@ class RocmOpencl(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime"
     url      = "https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/archive/roc-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='511b617d5192f2d4893603c1a02402b2ac9556e9806ff09dd2a91d398abf39a0')
     depends_on('cmake@3.5.2', type='build')

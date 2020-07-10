@@ -13,7 +13,7 @@ class Rocgdb(AutotoolsPackage):
     homepage = "https://github.com/ROCm-Developer-Tools/ROCgdb/"
     url      = "https://github.com/ROCm-Developer-Tools/ROCgdb/archive/rocm-3.5.0.tar.gz"
 
-    maintainers = ['Advanced Micro Devices Inc']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='cf36d956e84c7a5711b71f281a44b0a9708e13e941d8fca0247d01567e7ee7d1')
     depends_on('cmake@3.5.2', type='build')

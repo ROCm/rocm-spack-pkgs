@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 class HsaRocrDev(CMakePackage):
@@ -8,7 +14,7 @@ class HsaRocrDev(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/ROCR-Runtime"
     url      = "https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='52c12eec3e3404c0749c70f156229786ee0c3e6d3c979aed9bbaea500fa1f3b8')
 
