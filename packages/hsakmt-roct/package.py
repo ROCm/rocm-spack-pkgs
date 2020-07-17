@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 class HsakmtRoct(CMakePackage):
@@ -6,7 +12,7 @@ class HsakmtRoct(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface"
     url      = "https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='d9f458c16cb62c3c611328fd2f2ba3615da81e45f3b526e45ff43ab4a67ee4aa')
 

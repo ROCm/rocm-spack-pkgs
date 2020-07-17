@@ -1,3 +1,8 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
 
 from spack import *
 import os
@@ -9,7 +14,7 @@ class Rocclr(CMakePackage):
     homepage = "https://github.com/ROCm-Developer-Tools/ROCclr"
     url      = "https://github.com/ROCm-Developer-Tools/ROCclr/archive/roc-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='87c1ee9f02b8aa487b628c543f058198767c474cec3d21700596a73c028959e1')
 

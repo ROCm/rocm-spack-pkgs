@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 class LlvmAmdgpu(CMakePackage):
@@ -6,7 +12,7 @@ class LlvmAmdgpu(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/llvm-project"
     url      = "https://github.com/RadeonOpenCompute/llvm-project/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='4878fa85473b24d88edcc89938441edc85d2e8a785e567b7bd7ce274ecc2fd9c')
 

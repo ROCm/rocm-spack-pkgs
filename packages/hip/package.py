@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 
@@ -7,15 +13,19 @@ class Hip(CMakePackage):
     homepage = "https://github.com/ROCm-Developer-Tools/HIP"
     url      = "https://github.com/ROCm-Developer-Tools/HIP/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='ae8384362986b392288181bcfbe5e3a0ec91af4320c189bd83c844ed384161b3')
 
     depends_on('cmake@3.5.2', type='build')
     depends_on('rocclr@3.5.0:',  when='@3.5.0:')
     depends_on('hsakmt-roct@3.5.0:', type='build', when='@3.5.0:')
-    depends_on('hsa-rocr-dev@3.5.0:', type='build', when='@3.5.0:')
+    depends_on('hsa-rocr-dev@3.5.0:', type='link', when='@3.5.0:')
     depends_on('comgr@3.5.0:', type='build', when='@3.5.0')
+    depends_on('llvm-amdgpu@3.5.0:', type='build', when='@3.5.0')
+
+    def patch(self):
+        filter_file('INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"', 'INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"', 'hip-config.cmake.in', string=True)
 
 
     def setup_build_environment(self, build_env):

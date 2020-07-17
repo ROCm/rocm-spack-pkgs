@@ -13,7 +13,7 @@ class Atmi(CMakePackage):
     homepage = "https://github.com/RadeonOpenCompute/atmi"
     url      = "https://github.com/RadeonOpenCompute/atmi/archive/rocm-3.5.0.tar.gz"
     
-    maintainers = ['Advanced Micro Devices Inc']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='3fb57d2e583fab82bd0582d0c2bccff059ca91122c18ac49a7770a8bb041a37b')
 

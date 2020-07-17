@@ -1,3 +1,9 @@
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
 from spack import *
 
 class RocmDebugAgent(CMakePackage):
@@ -6,7 +12,7 @@ class RocmDebugAgent(CMakePackage):
     homepage = "https://github.com/ROCm-Developer-Tools/rocr_debug_agent"
     url      = "https://github.com/ROCm-Developer-Tools/rocr_debug_agent/archive/roc-3.5.0.tar.gz"
 
-    maintainers = ['Advanced Micro Devices Inc.']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='203ccb18d2ac508aae40bf364923f67375a08798b20057e574a0c5be8039f133')
     
