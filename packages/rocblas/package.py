@@ -6,7 +6,7 @@
 
 from spack import *
 import os
-import shutil
+import re
 
 
 class Rocblas(CMakePackage):
@@ -63,6 +63,12 @@ class Rocblas(CMakePackage):
 
     def cmake_args(self):
         spec=self.spec
+        # Finding the version of clang
+        hipcc = Executable(join_path(self.spec['hip'].prefix.bin, 'hipcc'))
+        version = hipcc('--version', output=str)
+        version_group = re.search(r"clang version (\S+)", version)
+        version_number = version_group.group(1)
+
         args = [
                 '-DHIP_COMPILER=clang',
                 '-DCMAKE_CXX_COMPILER={}/bin/hipcc'.format(self.spec['hip'].prefix),
@@ -72,6 +78,6 @@ class Rocblas(CMakePackage):
                 '-DRUN_HEADER_TESTING=OFF',
                 '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE',
                 '-DCMAKE_PREFIX_PATH=/usr/lib64/llvm7.0;{}'.format(self.spec['llvm-amdgpu'].prefix),
-                '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/11.0.0/include'.format(self.spec['llvm-amdgpu'].prefix)
+                '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(self.spec['llvm-amdgpu'].prefix, version_number)
                ]
         return args

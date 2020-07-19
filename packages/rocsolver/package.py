@@ -5,7 +5,8 @@
 
 
 from spack import *
-
+import os
+import re
 
 class Rocsolver(CMakePackage):
     """rocSOLVER is a work-in-progress implementation of a subset of LAPACK functionality on the ROCm platform."""
@@ -41,13 +42,19 @@ class Rocsolver(CMakePackage):
 
     def cmake_args(self):
         spec=self.spec
+        # Finding the version of clang
+        hipcc = Executable(join_path(self.spec['hip'].prefix.bin, 'hipcc'))
+        version = hipcc('--version', output=str)
+        version_group = re.search(r"clang version (\S+)", version)
+        version_number = version_group.group(1)
+
         args = [
                 '-DHIP_COMPILER=clang',
                 '-DCMAKE_CXX_COMPILER={}/bin/hipcc'.format(self.spec['hip'].prefix),
                 '-DUSE_HIP_CLANG=ON',
                 '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE',
                 '-DCMAKE_PREFIX_PATH={};{}'.format(self.spec['comgr'].prefix,self.spec['llvm-amdgpu'].prefix),
-                '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/11.0.0/include'.format(self.spec['llvm-amdgpu'].prefix)
+                '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(self.spec['llvm-amdgpu'].prefix, version_number)
                ]
 
         return args
