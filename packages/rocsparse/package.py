@@ -11,10 +11,11 @@ class Rocsparse(CMakePackage):
        sparse computation implemented on top of AMD's Radeon Open eCosystem Platform ROCm runtime 
        and toolchains. rocSPARSE is created using the HIP programming language and optimized for AMD's latest discrete GPUs."""
 
+
     homepage = "https://github.com/ROCmSoftwarePlatform/rocSPARSE"
     url      = "https://github.com/ROCmSoftwarePlatform/rocSPARSE/archive/rocm-3.5.0.tar.gz"
 
-    # maintainers = ['github_user1', 'github_user2']
+    maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version('3.5.0', sha256='9ca6bae7da78abbb47143c3d77ff4a8cd7d63979875fc7ebc46b400769fd9cb5')
 
