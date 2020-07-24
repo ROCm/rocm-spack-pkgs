@@ -41,7 +41,7 @@ class Hipcub(CMakePackage):
             '-DUSE_HIP_CLANG=ON',
             '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
             '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(
-                self.spec['llvm-amdgpu'].prefix, version_number)
+                spec['llvm-amdgpu'].prefix, version_number)
         ]
 
         return args
