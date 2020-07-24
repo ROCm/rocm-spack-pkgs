@@ -8,7 +8,10 @@ from spack import *
 
 
 class RocmDbgapi(CMakePackage):
-    """The AMD Debugger API is a library that provides all the support necessary for a debugger and other tools to perform low level control of the execution and inspection of execution state of AMD's commercially available GPU architectures."""
+    """The AMD Debugger API is a library that provides all the support
+       necessary for a debugger and other tools to perform low level
+       control of the execution and inspection of execution state of
+       AMD's commercially available GPU architectures."""
 
     homepage = "https://github.com/ROCm-Developer-Tools/ROCdbgapi"
     url      = "https://github.com/ROCm-Developer-Tools/ROCdbgapi/archive/rocm-3.5.0.tar.gz"
@@ -22,11 +25,11 @@ class RocmDbgapi(CMakePackage):
     depends_on('comgr@3.5.0:', type='build', when='@3.5.0')
 
     def patch(self):
-        filter_file(r'(<INSTALL_INTERFACE:include>)',  r'\1 {}/include'.format(self.spec['hsa-rocr-dev'].prefix), 'CMakeLists.txt')
+        filter_file(r'(<INSTALL_INTERFACE:include>)',  r'\1 {}/include'.
+                    format(self.spec['hsa-rocr-dev'].prefix), 'CMakeLists.txt')
 
     def cmake_args(self):
-        args = [
-                '-DCMAKE_VERBOSE_MAKEFILE=1',
+        args = ['-DCMAKE_VERBOSE_MAKEFILE=1',
                 '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE',
-               ]
+                ]
         return args
