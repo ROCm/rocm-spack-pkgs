@@ -3,15 +3,15 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+import re
 from spack import *
 
-import re
 
 class Rocprim(CMakePackage):
     """ Radeon Open Compute Parallel Primitives Library"""
 
     homepage = "https://github.com/ROCmSoftwarePlatform/rocPRIM"
-    url      = "https://github.com/ROCmSoftwarePlatform/rocPRIM/archive/rocm-3.5.0.tar.gz"
+    url = "https://github.com/ROCmSoftwarePlatform/rocPRIM/archive/rocm-3.5.0.tar.gz"
 
     maintainers = ['srekolam', 'arjun-raj-kuppala']
 
@@ -26,7 +26,7 @@ class Rocprim(CMakePackage):
     depends_on('hsa-rocr-dev@3.5.0:', type='build', when='@3.5:')
 
     def cmake_args(self):
-        spec=self.spec
+        spec = self.spec
 
         # Finding the version of clang
         hipcc = Executable(join_path(self.spec['hip'].prefix.bin, 'hipcc'))
@@ -35,10 +35,11 @@ class Rocprim(CMakePackage):
         version_number = version_group.group(1)
 
         args = [
-                '-DCMAKE_CXX_COMPILER={}/hipcc'.format(spec['hip'].prefix.bin),
-                '-DUSE_HIP_CLANG=ON',
-                '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
-                '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(self.spec['llvm-amdgpu'].prefix, version_number)
-               ]
+            '-DCMAKE_CXX_COMPILER={}/hipcc'.format(spec['hip'].prefix.bin),
+            '-DUSE_HIP_CLANG=ON',
+            '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
+            '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(
+                self.spec['llvm-amdgpu'].prefix, version_number)
+            ]
 
         return args
