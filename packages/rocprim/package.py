@@ -11,7 +11,7 @@ class Rocprim(CMakePackage):
     """ Radeon Open Compute Parallel Primitives Library"""
 
     homepage = "https://github.com/ROCmSoftwarePlatform/rocPRIM"
-    url = "https://github.com/ROCmSoftwarePlatform/rocPRIM/archive/rocm-3.5.0.tar.gz"
+    url      = "https://github.com/ROCmSoftwarePlatform/rocPRIM/archive/rocm-3.5.0.tar.gz"
 
     maintainers = ['srekolam', 'arjun-raj-kuppala']
 
@@ -40,6 +40,6 @@ class Rocprim(CMakePackage):
             '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
             '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(
                 self.spec['llvm-amdgpu'].prefix, version_number)
-            ]
+        ]
 
         return args

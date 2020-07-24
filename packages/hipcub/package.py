@@ -3,8 +3,9 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import re
 from spack import *
+
+import re
 
 
 class Hipcub(CMakePackage):
@@ -41,6 +42,6 @@ class Hipcub(CMakePackage):
             '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
             '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(
                 self.spec['llvm-amdgpu'].prefix, version_number)
-            ]
+        ]
 
         return args

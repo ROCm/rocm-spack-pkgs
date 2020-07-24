@@ -14,7 +14,7 @@ class Rocthrust(CMakePackage):
        library works on HIP/ROCm platforms"""
 
     homepage = "https://github.com/ROCmSoftwarePlatform/rocThrust"
-    url = "https://github.com/ROCmSoftwarePlatform/rocThrust/archive/rocm-3.5.0.tar.gz"
+    url      = "https://github.com/ROCmSoftwarePlatform/rocThrust/archive/rocm-3.5.0.tar.gz"
 
     maintainers = ['srekolam', 'arjun-raj-kuppala']
 
@@ -45,6 +45,6 @@ class Rocthrust(CMakePackage):
             '-DCMAKE_MODULE_PATH={}/cmake'.format(spec['hip'].prefix),
             '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(
                 self.spec['llvm-amdgpu'].prefix, version_number)
-            ]
+        ]
 
         return args

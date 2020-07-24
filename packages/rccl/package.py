@@ -36,6 +36,6 @@ class Rccl(CMakePackage):
         args = [
             '-DCMAKE_CXX_COMPILER={}/hipcc'.format(spec['hip'].prefix.bin),
             '-DCMAKE_PREFIX_PATH={}'.format(spec['hip'].prefix)
-            ]
+        ]
 
         return args
