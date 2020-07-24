@@ -5,8 +5,12 @@
 
 from spack import *
 
+
 class Rccl(CMakePackage):
-    """RCCL (pronounced "Rickle") is a stand-alone library of standard collective communication routines for GPUs, implementing all-reduce, all-gather, reduce, broadcast, and reduce-scatter."""
+    """RCCL (pronounced "Rickle") is a stand-alone library
+    of standard collective communication routines for GPUs,
+    implementing all-reduce, all-gather, reduce, broadcast,
+    and reduce-scatter."""
 
     homepage = "https://github.com/RadeonOpenCompute/rccl"
     url      = "https://github.com/ROCmSoftwarePlatform/rccl/archive/rocm-3.5.0.tar.gz"
@@ -22,13 +26,16 @@ class Rccl(CMakePackage):
     depends_on('rocm-device-libs@3.5:', type='build', when='@3.5:')
 
     def patch(self):
-        filter_file('INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"', 'INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"', 'rccl-targets.cmake', string=True)
+        filter_file(
+            'INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"',
+            'INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"',
+            'rccl-targets.cmake', string=True)
 
     def cmake_args(self):
         spec = self.spec
         args = [
-                '-DCMAKE_CXX_COMPILER={}/hipcc'.format(spec['hip'].prefix.bin),
-                '-DCMAKE_PREFIX_PATH={}'.format(spec['hip'].prefix)
-               ]
+            '-DCMAKE_CXX_COMPILER={}/hipcc'.format(spec['hip'].prefix.bin),
+            '-DCMAKE_PREFIX_PATH={}'.format(spec['hip'].prefix)
+            ]
 
         return args
