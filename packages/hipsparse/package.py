@@ -8,9 +8,11 @@ from spack import *
 
 
 class Hipsparse(CMakePackage):
-    """hipSPARSE is a SPARSE marshalling library, with multiple supported backends. It sits between the application and a
-       'worker' SPARSE library, marshalling inputs into the backend library and marshalling results back to the application.
-       hipSPARSE exports an interface that does not require the client to change, regardless of the chosen backend.
+    """hipSPARSE is a SPARSE marshalling library, with multiple supported
+       backends. It sits between the application and a 'worker' SPARSE
+       library, marshalling inputs into the backend library and marshalling
+       results back to the application. hipSPARSE exports an interface that
+       does not require the client to change, regardless of the chosen backend.
        Currently, hipSPARSE supports rocSPARSE and cuSPARSE as backends."""
 
     homepage = "https://github.com/ROCmSoftwarePlatform/hipSPARSE"
@@ -29,10 +31,9 @@ class Hipsparse(CMakePackage):
     depends_on('rocsparse@3.5.0:', type='build', when='@3.5.0')
 
     def cmake_args(self):
-        args = [
-               '-DCMAKE_CXX_FLAGS=-I {0}/include'.format(self.spec['hsa-rocr-dev'].prefix),
-               '-DBUILD_CLIENTS_TESTS=OFF',
-               '-DBUILD_CLIENTS_BENCHMARKS=OFF',
-               '-DBUILD_CLIENTS_SAMPLES=OFF'
-               ]
+        hsa_rocr_inc_path = self.spec['hsa-rocr-dev'].prefix.include
+        args = ['-DCMAKE_CXX_FLAGS=-I {0}'.format(hsa_rocr_inc_path),
+                '-DBUILD_CLIENTS_TESTS=OFF',
+                '-DBUILD_CLIENTS_BENCHMARKS=OFF',
+                '-DBUILD_CLIENTS_SAMPLES=OFF']
         return args
