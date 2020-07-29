@@ -58,5 +58,4 @@ class Rocsparse(CMakePackage):
                 spec['llvm-amdgpu'].prefix, version_number),
             '-DBoost_INCLUDE_DIRS={}'.format(spec['boost'].prefix.include)
         ]
-
         return args
