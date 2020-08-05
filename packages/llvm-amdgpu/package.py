@@ -28,8 +28,10 @@ class LlvmAmdgpu(CMakePackage):
 
     def cmake_args(self):
         args = [
-            '-DCMAKE_VERBOSE_MAKEFILE=1',
             '-DLLVM_ENABLE_PROJECTS=clang;lld;clang-tools-extra;compiler-rt',
             '-DLLVM_ENABLE_ASSERTIONS=1'
         ]
+        if self.compiler.name == "gcc":
+            gcc_prefix = ancestor(self.compiler.cc, 2)
+            args.append("-DGCC_INSTALL_PREFIX=" + gcc_prefix)
         return args

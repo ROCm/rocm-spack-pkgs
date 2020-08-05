@@ -22,15 +22,9 @@ class Comgr(CMakePackage):
 
     depends_on('cmake@3.5.2', type='build')
     depends_on('rocm-cmake@3.5:', type='build', when='@3.5:')
-    depends_on('llvm-amdgpu@3.5:', type='build', when='@3.5:')
-    depends_on('rocm-device-libs@3.5:', type='build', when='@3.5:')
+    for ver in ['3.5.0']:
+        depends_on('llvm-amdgpu@' + ver, type='build', when='@' + ver)
+        depends_on('rocm-device-libs@' + ver, type='build', when='@' + ver)
 
     root_cmakelists_dir = 'lib/comgr'
 
-    def cmake_args(self):
-        args = [
-            '-DCMAKE_VERBOSE_MAKEFILE=1',
-            '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE'
-        ]
-
-        return args

@@ -21,14 +21,12 @@ class RocmDeviceLibs(CMakePackage):
 
     depends_on('cmake@3.5.2', type='build')
     depends_on('rocm-cmake@3.5:', type='build', when='@3.5:')
-    depends_on('llvm-amdgpu@3.5:', type='build', when='@3.5:')
+    for ver in ['3.5.0']:
+        depends_on('llvm-amdgpu@' + ver, type='build', when='@' + ver)
 
     def cmake_args(self):
         spec = self.spec
-        args = ['-DCMAKE_VERBOSE_MAKEFILE=1',
-                '-DLLVM_DIR={}'.format(spec['llvm-amdgpu'].prefix),
-                '-DCMAKE_C_COMPILER={}/bin/clang'.format(
-                    spec['llvm-amdgpu'].prefix),
-                '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH="FALSE"'
+        args = ['-DCMAKE_C_COMPILER={}/bin/clang'.format(
+                    spec['llvm-amdgpu'].prefix)
                 ]
         return args
