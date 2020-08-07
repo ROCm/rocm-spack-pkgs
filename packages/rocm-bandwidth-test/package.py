@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class RocmBandwidthTest(CMakePackage):
     """Test to measure PciE bandwidth on ROCm platforms"""
 
@@ -18,8 +19,9 @@ class RocmBandwidthTest(CMakePackage):
 
     variant('build_type', default='Release', values=("Release", "Debug"), description='CMake build type')
 
-    depends_on('cmake@3.5.2', type='build')
-    depends_on('hsa-rocr-dev@3.5:', type='link', when='@3.5:')
-    depends_on('hsakmt-roct@3.5:', type='build', when='@3.5:')
+    depends_on('cmake@3:', type='build')
+    for ver in ['3.5.0']:
+        depends_on('hsa-rocr-dev@' + ver, type='link', when='@' + ver)
+        depends_on('hsakmt-roct@' + ver, type='build', when='@' + ver)
 
     build_targets = ['package']
