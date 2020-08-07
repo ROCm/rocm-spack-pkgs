@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class RocmDeviceLibs(CMakePackage):
     """set of AMD specific device-side language runtime libraries"""
 
@@ -18,18 +19,16 @@ class RocmDeviceLibs(CMakePackage):
 
     variant('build_type', default='Release', values=("Release", "Debug"), description='CMake build type')
 
-    depends_on('cmake@3.5.2', type='build')
-    depends_on('rocm-cmake@3.5:', type='build', when='@3.5:')
-    depends_on('llvm-amdgpu@3.5:', type='build', when='@3.5:')
+    depends_on('cmake@3:', type='build')
+    for ver in ['3.5.0']:
+        depends_on('llvm-amdgpu@' + ver, type='build', when='@' + ver)
+        depends_on('rocm-cmake@' + ver, type='build', when='@' + ver)
 
     def cmake_args(self):
-        spec=self.spec
-
+        spec = self.spec
         args = [
-                '-DCMAKE_VERBOSE_MAKEFILE=1',
-                '-DLLVM_DIR={}'.format(spec['llvm-amdgpu'].prefix),
-                '-DCMAKE_C_COMPILER={}/bin/clang'.format(spec['llvm-amdgpu'].prefix),
-                '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH="FALSE"'
-               ]
-
+            '-DLLVM_DIR={0}'.format(spec['llvm-amdgpu'].prefix),
+            '-DCMAKE_C_COMPILER={0}/bin/clang'.format(
+                spec['llvm-amdgpu'].prefix),
+        ]
         return args
