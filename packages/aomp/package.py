@@ -27,6 +27,7 @@ class Aomp(Package):
     version('3.5.0', sha256=aomp_sha)
 
     depends_on('cmake@3.5.2', type='build')
+    depends_on('binutils', type='build')
     depends_on('rocm-device-libs@3.5:', type='build', when='@3.5:')
     depends_on('hsakmt-roct@3.5:', type='build', when='@3.5:')
     depends_on('hsa-rocr-dev@3.5:', type='build', when='@3.5:')
@@ -130,7 +131,7 @@ class Aomp(Package):
             libomptarget.format(src) + '/plugins/hsa/CMakeLists.txt')
 
         filter_file(
-            '-L${LIBOMPTARGET_DEP_LIBHSAKMT_LIBRARIES_DIRS}',
+            '-L\${LIBOMPTARGET_DEP_LIBHSAKMT_LIBRARIES_DIRS}',
             '-L${LIBOMPTARGET_DEP_LIBHSAKMT_LIBRARIES_DIRS} -L${HSAKMT_LIB64}',
             libomptarget.format(src) + '/plugins/hsa/CMakeLists.txt')
 
@@ -251,7 +252,7 @@ class Aomp(Package):
             '-DCMAKE_C_COMPILER={}/bin/clang'.format(aomp_prefix),
             '-DCMAKE_Fortran_COMPILER={}/bin/flang'.format(aomp_prefix),
             '-DLLVM_TARGETS_TO_BUILD=AMDGPU;x86',
-            '-DCMAKE_AR=/usr/bin/ar'
+            '-DCMAKE_AR={}/bin/ar'.format(self.spec['binutils'].prefix)
         ]
 
         components['flang'] = [
