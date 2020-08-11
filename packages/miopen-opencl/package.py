@@ -16,7 +16,7 @@ class MiopenOpencl(CMakePackage):
     maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version(
-        'rocm-3.5.0', sha256='6ba3e57df57024ad4989ad782c58c34a73e3a8929b7b348e441ac843bafea9a2')
+        'rocm-3.5.0', sha256='aa362e69c4dce7f5751f0ee04c745735ea5454c8101050e9b92cc60fa3c0fb82')
     variant('build_type', default='Release', description='CMake build type')
 
     depends_on('cmake@3.5.2', type='build')
