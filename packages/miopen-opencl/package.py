@@ -26,7 +26,7 @@ class MiopenOpencl(CMakePackage):
     depends_on('llvm-amdgpu@3.5.0:', when='@rocm-3.5.0')
     depends_on('rocm-opencl@3.5:', when='@rocm-3.5.0')
     depends_on('miopengemm@1.1.6:', type='link', when='@rocm-3.5.0')
-    depends_on('boost@1.72.0', type='link')
+    depends_on('boost@1.58.0', type='link')
     depends_on('sqlite', type='link')
     depends_on('half', type='build')
     depends_on('bzip2', type='link')
