@@ -31,7 +31,6 @@ class Rocblas(CMakePackage):
     depends_on('python@3:', type=('build', 'run'))
     depends_on('py-setuptools', type='build')
     depends_on('py-virtualenv', type='test')
-    depends_on('py-pyyaml', type=('build', 'run'))
     depends_on('py-pip', type=('build', 'run'))
     depends_on('googletest', type='test')
     depends_on('cmake@3.5.2', type='build')
@@ -42,6 +41,8 @@ class Rocblas(CMakePackage):
     depends_on('hsakmt-roct@3.5.0:', type='build', when='@3.5.0:')
     depends_on('hsa-rocr-dev@3.5.0:', type='link', when='@3.5.0:')
     depends_on('rocminfo@3.5.0:', type='build', when='@3.5.0:')
+    depends_on('llvm-amdgpu@3.5.0:', type=('build', 'run'), when='@3.5.0')
+    depends_on('llvm@6.0.1 -clang -lld -lldb -libcxx -internal_unwind -compiler-rt', type='build')
     depends_on('lapack')
     depends_on('boost')
     depends_on('zlib', type= 'build', when='@3.5.0:')
@@ -73,11 +74,13 @@ class Rocblas(CMakePackage):
                 '-DHIP_COMPILER=clang',
                 '-DCMAKE_CXX_COMPILER={}/bin/hipcc'.format(self.spec['hip'].prefix),
                 '-DUSE_HIP_CLANG=ON',
-		'-DTensile_COMPILER=hipcc',
-		'-DTensile_CODE_OBJECT_VERSION=V3',
+                '-DTensile_COMPILER=hipcc',
+                '-DTensile_CODE_OBJECT_VERSION=V3',
                 '-DRUN_HEADER_TESTING=OFF',
                 '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE',
-                '-DCMAKE_PREFIX_PATH=/usr/lib64/llvm7.0;{}'.format(self.spec['llvm-amdgpu'].prefix),
+                '-DLLVMObjectYAML_LIBRARY={}/lib/libLLVMObjectYAML.a'.format(self.spec['llvm'].prefix),
+                '-DLLVM_DIR={}/lib/cmake/llvm/'.format(self.spec['llvm'].prefix),
+                '-DLLVM_INCLUDE_DIRS={}/include/'.format(self.spec['llvm'].prefix),
                 '-DHIP_CLANG_INCLUDE_PATH={}/lib/clang/{}/include'.format(self.spec['llvm-amdgpu'].prefix, version_number)
                ]
         return args
