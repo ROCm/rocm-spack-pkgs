@@ -6,8 +6,10 @@
 
 from spack import *
 
+
 class Comgr(CMakePackage):
-    """This provides various Lightning Compiler related services. It currently contains one library, the Code Object Manager (Comgr)"""
+    """This provides various Lightning Compiler related services. It currently
+       contains one library, the Code Object Manager (Comgr)"""
 
     homepage = "https://github.com/RadeonOpenCompute/ROCm-CompilerSupport"
     url      = "https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/archive/rocm-3.5.0.tar.gz"
@@ -18,18 +20,13 @@ class Comgr(CMakePackage):
 
     variant('build_type', default='Release', values=("Release", "Debug"), description='CMake build type')
 
-    depends_on('cmake@3.5.2', type='build')
-    depends_on('rocm-cmake@3.5:', type='build', when='@3.5:')
-    depends_on('llvm-amdgpu@3.5:', type='build', when='@3.5:')
-    depends_on('rocm-device-libs@3.5:', type='build', when='@3.5:')
+    depends_on('cmake@3:', type='build')
+    for ver in ['3.5.0']:
+        depends_on('llvm-amdgpu@' + ver, type='build', when='@' + ver)
+        depends_on('rocm-device-libs@' + ver, type='build', when='@' + ver)
+        depends_on('rocm-cmake@' + ver , type='build', when='@' + ver)
+    depends_on('zlib', type='link')
+    depends_on('z3', type='link')
+    depends_on('ncurses', type='link')
 
     root_cmakelists_dir = 'lib/comgr'
-
-    def cmake_args(self):
-        spec=self.spec
-        args = [
-                '-DCMAKE_VERBOSE_MAKEFILE=1',
-                '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH="FALSE"'
-               ]
-
-        return args
