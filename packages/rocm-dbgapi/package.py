@@ -8,7 +8,10 @@ from spack import *
 
 
 class RocmDbgapi(CMakePackage):
-    """The AMD Debugger API is a library that provides all the support necessary for a debugger and other tools to perform low level control of the execution and inspection of execution state of AMD's commercially available GPU architectures."""
+    """The AMD Debugger API is a library that provides all the support
+       necessary for a debugger and other tools to perform low level
+       control of the execution and inspection of execution state of
+       AMD's commercially available GPU architectures."""
 
     homepage = "https://github.com/ROCm-Developer-Tools/ROCdbgapi"
     url      = "https://github.com/ROCm-Developer-Tools/ROCdbgapi/archive/rocm-3.5.0.tar.gz"
@@ -17,16 +20,11 @@ class RocmDbgapi(CMakePackage):
 
     version('3.5.0', sha256='eeba0592bc79b90e5b874bba18fd003eab347e8a3cc80343708f8d19e047e87b')
 
-    depends_on('cmake@3.5.2', type='build')
-    depends_on('hsa-rocr-dev@3.5.0:', type='build', when='@3.5.0:')
-    depends_on('comgr@3.5.0:', type='build', when='@3.5.0')
+    depends_on('cmake@3:', type='build')
+    for ver in ['3.5.0']:
+        depends_on('hsa-rocr-dev@' + ver, type='build', when='@' + ver)
+        depends_on('comgr@' + ver, type=('build', 'link'), when='@' + ver)
 
     def patch(self):
-        filter_file(r'(<INSTALL_INTERFACE:include>)',  r'\1 {}/include'.format(self.spec['hsa-rocr-dev'].prefix), 'CMakeLists.txt')
-
-    def cmake_args(self):
-        args = [
-                '-DCMAKE_VERBOSE_MAKEFILE=1',
-                '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE',
-               ]
-        return args
+        filter_file(r'(<INSTALL_INTERFACE:include>)',  r'\1 {0}/include'.
+                    format(self.spec['hsa-rocr-dev'].prefix), 'CMakeLists.txt')
