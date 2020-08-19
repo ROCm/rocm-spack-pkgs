@@ -44,3 +44,6 @@ index 122277ee..02ca4644 100644
 +   set(OPENCL_INCLUDE_DIR "" CACHE PATH "" FORCE )
  endif()
 +message(STATUS "Opencl found at ${OPENCL_INCLUDE_DIR}.")
+ 
+ 
+ 
