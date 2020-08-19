@@ -22,15 +22,12 @@ class HsaRocrDev(CMakePackage):
 
     variant('build_type', default='Release', values=("Release", "Debug"), description='CMake build type')
 
-    depends_on('cmake@3:', type="build")
     for ver in ['3.5.0']:
-         depends_on('hsakmt-roct@' + ver, type=('link', 'run'), when='@' + ver)
-         depends_on('libelf@0.8:', type='link', when="@" + ver)
+        depends_on('hsakmt-roct@' + ver, type=('link', 'run'), when='@' + ver)
+        depends_on('libelf@0.8:', type='link', when="@" + ver)
+
+    depends_on('cmake@3:', type="build")
+
+    patch('0001-Do-not-set-an-explicit-rpath-by-default-since-packag.patch', when='@3.5.0')
 
     root_cmakelists_dir = 'src'
-
-    def cmake_args(self):
-        args = [
-                '-DCMAKE_BUILD_WITH_INSTALL_RPATH=1',
-               ]
-        return args

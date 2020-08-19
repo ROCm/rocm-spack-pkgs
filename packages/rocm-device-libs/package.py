@@ -26,9 +26,8 @@ class RocmDeviceLibs(CMakePackage):
 
     def cmake_args(self):
         spec = self.spec
-        args = [
-            '-DLLVM_DIR={0}'.format(spec['llvm-amdgpu'].prefix),
-            '-DCMAKE_C_COMPILER={0}/bin/clang'.format(
-                spec['llvm-amdgpu'].prefix),
-        ]
+        args = ['-DLLVM_DIR={0}'.format(spec['llvm-amdgpu'].prefix),
+                '-DCMAKE_C_COMPILER={0}/bin/clang'.format(
+                    spec['llvm-amdgpu'].prefix),
+                ]
         return args

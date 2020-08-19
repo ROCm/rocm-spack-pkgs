@@ -30,10 +30,7 @@ class RocmDebugAgent(CMakePackage):
     def cmake_args(self):
         spec = self.spec
         args = [
-            '-DROCM_DIR={0}'.format(spec['hsa-rocr-dev'].prefix),
-            '-DCMAKE_PREFIX_PATH={}/include/hsa;\
-                {}/include,'.format(
-                    spec['hsa-rocr-dev'].prefix,
-                    spec['hsakmt-roct'].prefix)
+            '-DCMAKE_PREFIX_PATH={0}/include/hsa;{1}/include,'.
+            format(spec['hsa-rocr-dev'].prefix, spec['hsakmt-roct'].prefix)
         ]
         return args
