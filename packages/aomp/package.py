@@ -32,6 +32,10 @@ class Aomp(Package):
     depends_on('hsakmt-roct@3.5:', type='build', when='@3.5:')
     depends_on('hsa-rocr-dev@3.5:', type='build', when='@3.5:')
     depends_on('comgr@3.5:', type='build', when='@3.5:')
+    depends_on('mesa~llvm@18.3:', type=('build', 'link'), when='@3.5:')
+    depends_on('py-setuptools@44.1.0', when='@3.5:')
+    depends_on('python@2.7.18', when='@3.5:')
+    depends_on('perl-data-dumper', type='build', when='@3.5:')
 
     resource(
         name='rocm-device-libs',
@@ -89,25 +93,19 @@ class Aomp(Package):
         destination='aomp-dir',
         placement='opencl-on-vdi')
 
-    def setup_build_environment(self, build_env):
-        aomp_prefix = self.spec['aomp'].prefix
-        build_env.set('AOMP', '{}'.format(format(aomp_prefix)))
-        build_env.set('FC', '{}/bin/flang'.format(format(aomp_prefix)))
-        build_env.set(
-            'GFXLIST',
-            'gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908')
-
-    def install(self, spec, prefix):
+    def patch(self):
+        kwargs = {'ignore_absent': False, 'backup': False, 'string': False}
+        with working_dir('aomp-dir/hip-on-vdi'):
+            match = '^#!/usr/bin/python'
+            python = self.spec['python'].command
+            substitute = "#!{python}".format(python=python)
+            files = [
+                'hip_prof_gen.py', 'vdi/hip_prof_gen.py'
+            ]
+            filter_file(match, substitute, *files, **kwargs)
         src = self.stage.source_path
-        gfx_list = "gfx700;gfx701;gfx801;gfx803;gfx900;gfx902;gfx906;gfx908"
-        aomp_prefix = self.spec['aomp'].prefix
-        devlibs_prefix = self.spec['rocm-device-libs'].prefix
-        hsa_prefix = self.spec['hsa-rocr-dev'].prefix
-        hsakmt_prefix = self.spec['hsakmt-roct'].prefix
-        comgr_prefix = self.spec['comgr'].prefix
         libomptarget = '{}/aomp-dir/amd-llvm-project/openmp/libomptarget'
         aomp_extras = '{}/aomp-dir/aomp-extras/aomp-device-libs'
-
         filter_file(
             '{ROCM_DIR}/lib/bitcode', '{DEVICE_LIBS_DIR}',
             aomp_extras.format(src) + '/aompextras/CMakeLists.txt',
@@ -160,6 +158,22 @@ class Aomp(Package):
             '-Wl,-rpath,${COMGR_LIB}',
             libomptarget.format(src) + '/plugins/hsa/CMakeLists.txt')
 
+    def setup_build_environment(self, build_env):
+        aomp_prefix = self.spec['aomp'].prefix
+        build_env.set('AOMP', '{}'.format(format(aomp_prefix)))
+        build_env.set('FC', '{}/bin/flang'.format(format(aomp_prefix)))
+        build_env.set(
+            'GFXLIST',
+            'gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908')
+
+    def install(self, spec, prefix):
+        src = self.stage.source_path
+        gfx_list = "gfx700;gfx701;gfx801;gfx803;gfx900;gfx902;gfx906;gfx908"
+        aomp_prefix = self.spec['aomp'].prefix
+        devlibs_prefix = self.spec['rocm-device-libs'].prefix
+        hsa_prefix = self.spec['hsa-rocr-dev'].prefix
+        hsakmt_prefix = self.spec['hsakmt-roct'].prefix
+        comgr_prefix = self.spec['comgr'].prefix
         components = dict()
         components['amd-llvm-project'] = [
             '../aomp-dir/amd-llvm-project/llvm',
