@@ -16,16 +16,16 @@ class MiopenHip(CMakePackage):
     maintainers = ['srekolam', 'arjun-raj-kuppala']
 
     version(
-        'rocm-3.5.0', sha256='aa362e69c4dce7f5751f0ee04c745735ea5454c8101050e9b92cc60fa3c0fb82')
+        '3.5.0', sha256='aa362e69c4dce7f5751f0ee04c745735ea5454c8101050e9b92cc60fa3c0fb82')
     variant('build_type', default='Release', description='CMake build type')
 
     depends_on('cmake@3.5.2', type='build')
-    depends_on('rocm-cmake@3.5:', type='build', when='@rocm-3.5.0')
-    depends_on('hip@3.5.0:', when='@rocm-3.5.0:')
-    depends_on('comgr@3.5.0:', type='link', when='@rocm-3.5.0')
-    depends_on('llvm-amdgpu@3.5.0:', when='@rocm-3.5.0')
-    depends_on('rocm-clang-ocl@3.5:', when='@rocm-3.5.0')
-    depends_on('rocblas@3.5.0:', type='link', when='@rocm-3.5.0')
+    depends_on('rocm-cmake@3.5:', type='build', when='@3.5:')
+    depends_on('hip@3.5.0:', when='@3.5:')
+    depends_on('comgr@3.5.0:', type='link', when='@3.5:')
+    depends_on('llvm-amdgpu@3.5:', when='@3.5:')
+    depends_on('rocm-clang-ocl@3.5:', when='@3.5:')
+    depends_on('rocblas@3.5:', type='link', when='@3.5:')
     depends_on('boost@1.58.0', type='link')
     depends_on('sqlite', type='link')
     depends_on('half', type='build')
