@@ -36,6 +36,7 @@ class Aomp(Package):
     depends_on('py-setuptools@44.1.0', when='@3.5:')
     depends_on('python@2.7.18', when='@3.5:')
     depends_on('perl-data-dumper', type='build', when='@3.5:')
+    depends_on('gawk', type='build', when='@3.5:')
 
     resource(
         name='rocm-device-libs',
